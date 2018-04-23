@@ -1,0 +1,79 @@
+{%extends 'Layout.html'%}
+
+{%block content%}
+
+<div class="container">
+    <h1 class="well">Register a Course</h1>
+    <div class="col-lg-12 well">
+        <div class="row">
+            <form method="post" action="/Ins_Crse">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label>Course ID</label>
+                            <input type="text" name="crse_id" placeholder="Eg: IT 123, IT 222" class="form-control">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>Course Name</label>
+                            <input type="text" name="crse_name" placeholder="Eg: Research Methodology"
+                                   class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <!--<label>Day</label>-->
+                            <div class="form-group">
+                                <label for="day">Select a Day</label>
+                                <select name="day" class="form-control" id="sel1">
+                                    <option>Monday</option>
+                                    <option>Tuesday</option>
+                                    <option>Wednesday</option>
+                                    <option>Thursday</option>
+                                    <option>Friday</option>
+                                    <option>Saturday</option>
+                                    <option>Sunday</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Start Time (24 hrs)</label>
+                            <div class="input-append">
+                                <input type="text" name="strt_time" id="strt_time" value="00:00" class="input-small"
+                                       readonly="">
+                                <button class="btn" type="button" id="toggle-btn1">
+                                    <i class="glyphicon glyphicon-time"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>End Time (24 hrs)</label>
+                            <div class="input-append">
+                                <input type="text" name="end_time" id="end_time" value="00:00" class="input-small"
+                                       readonly="">
+                                <button class="btn" type="button" id="toggle-btn2">
+                                    <i class="glyphicon glyphicon-time"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div align="center">
+                            <input type="submit" value="Submit" class="btn btn-lg btn-info">
+                        </div>
+                        {%if valid%}
+                        <div class="alert alert-success">
+                            <strong>Success!</strong> Data Entered successfully.
+                        </div>
+                        {%else%}
+                        <div class="alert alert-warning">
+                            <strong>Note:</strong> Please fill out all the fields
+                        </div>
+                        {{super()}}
+                        {%endif%}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock%}
+
