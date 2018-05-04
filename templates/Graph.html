@@ -1,0 +1,51 @@
+{%extends 'Layout.html'%}
+{%block title%}
+Show Graph
+{%endblock%}
+{%block content%}
+
+<div class="container">
+    <h1 class="well">Show monthly graph</h1>
+    <div class="col-sm-12 well">
+        <div class="row">
+            <form method="post" action="/graph">
+                <div class="col-sm-6 well">
+                    <div class="col-sm-3 well">
+                        <div class="form-group">
+                            <label for="crse_id">Course ID</label>
+                            <select name="crse_id" class="form-control" id="sel1">
+                                {% for items in option_list %}
+                                <option value="{{ items.Course_id }}" SELECTED>{{ items.Course_id }}</option>
+                                {% endfor %}
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-3 well">
+                        <input type="submit" value="Submit" class="btn btn-lg btn-info">
+                    </div>
+                </div>
+
+                <!--<div class="col-sm-3 form-group">-->
+                <!--<div align="center">-->
+                <!--<input type="submit" value="Submit" class="btn btn-lg btn-info">-->
+                <!--</div>-->
+                <!--</div>-->
+            </form>
+        </div>
+    </div>
+</div>
+
+{%if canvas%}
+<div class="container">
+    <h1 class="well">Something</h1>
+    <div class="col-sm-12 well">
+        <div align="center">
+            <canvas id="chart" width="600" height="400"></canvas>
+        </div>
+    </div>
+</div>
+{{super()}}
+{%endif%}
+
+{%endblock%}

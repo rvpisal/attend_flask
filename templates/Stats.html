@@ -1,52 +1,83 @@
 {%extends 'Layout.html'%}
+{%block title%}
+Show Stats
+{%endblock%}
+
 {%block content%}
 <div class="container">
-    <div class="row">
+    <div class="col-sm-12 well">
+        <div class="row">
+            <form method="post" action="/stats">
+                <div class="col-sm-3 form-group">
+                    <div class="form-group">
+                        <label for="crse_id">Course ID</label>
+                        <select name="crse_id" class="form-control" id="sel1">
+                            {% for items in option_list %}
+                            <option value="{{ items.Course_id }}" SELECTED>{{ items.Course_id }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label>Something</label>
+                    <input type="text" name="stu_name" class="form-control">
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label>Student Name</label>
+                    <input type="text" name="stu_name" class="form-control">
+                </div>
+                <div class="col-sm-3 form-group">
+                    <div align="center">
+                        <input type="submit" value="Submit" class="btn btn-lg btn-info">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-4 well">
+        <h2 class="well">Attendance till date:</h2>
         <div class="span5">
             <table class="table table-striped table-condensed">
                 <thead>
                 <tr>
-                    <th>Username</th>
-                    <th>Date registered</th>
-                    <th>Role</th>
-                    <th>Status</th>
+                    <th>ULID</th>
+                    <th>Classes Attended</th>
                 </tr>
                 </thead>
                 <tbody>
+                {%for items in tot_list%}
                 <tr>
-                    <td>Donna R. Folse</td>
-                    <td>2012/05/06</td>
-                    <td>Editor</td>
-                    <td><span class="label label-success">Active</span>
-                    </td>
+                    <td>{{items.ULID}}</td>
+                    <td>{{items.total}}</td>
                 </tr>
-                <tr>
-                    <td>Emily F. Burns</td>
-                    <td>2011/12/01</td>
-                    <td>Staff</td>
-                    <td><span class="label label-important">Banned</span></td>
-                </tr>
-                <tr>
-                    <td>Andrew A. Stout</td>
-                    <td>2010/08/21</td>
-                    <td>User</td>
-                    <td><span class="label">Inactive</span></td>
-                </tr>
-                <tr>
-                    <td>Mary M. Bryan</td>
-                    <td>2009/04/11</td>
-                    <td>Editor</td>
-                    <td><span class="label label-warning">Pending</span></td>
-                </tr>
-                <tr>
-                    <td>Mary A. Lewis</td>
-                    <td>2007/02/01</td>
-                    <td>Staff</td>
-                    <td><span class="label label-success">Active</span></td>
-                </tr>
+                {%endfor%}
                 </tbody>
             </table>
         </div>
     </div>
+
+    <div class="col-md-4 well">
+        <h2 class="well">Today's Attendance:</h2>
+        <div class="span5">
+            <table class="table table-striped table-condensed">
+                <thead>
+                <tr>
+                    <th>ULID</th>
+                    <th>TimeStamp</th>
+                </tr>
+                </thead>
+                <tbody>
+                {%for items in atn_list%}
+                <tr>
+                    <td>{{items.ULID}}</td>
+                    <td>{{items.TimeStamp}}</td>
+                </tr>
+                {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
 </div>
 {%endblock%}
