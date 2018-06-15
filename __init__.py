@@ -67,7 +67,7 @@ def Ins_stu():
         return render_template('Reg_Students.html', valid=False, option_list=opt_list)
     else:
         try:
-            db.execute('Insert into Registration_Details values (?,?)', (ulid, crse_id))
+            db.execute('Insert into Registration_Details values (?,?,?)', (ulid, stu_name, crse_id))
             db.commit()
             db.close()
             return render_template('Reg_Students.html', valid=True, option_list=opt_list)
