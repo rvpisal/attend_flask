@@ -29,6 +29,7 @@ Register a Course
                             <div class="form-group">
                                 <label for="day">Select a Day</label>
                                 <select name="day" class="form-control" id="sel1">
+                                    <option value="Select" SELECTED="selected">--Select--</option>
                                     <option>Monday</option>
                                     <option>Tuesday</option>
                                     <option>Wednesday</option>
@@ -59,20 +60,25 @@ Register a Course
                                 </button>
                             </div>
                         </div>
-                        <div align="center">
-                            <input type="submit" value="Submit" class="btn btn-lg btn-info">
-                        </div>
-                        {%if valid%}
-                        <div class="alert alert-success">
-                            <strong>Success!</strong> Data Entered successfully.
-                        </div>
-                        {%else%}
-                        <div class="alert alert-warning">
-                            <strong>Note:</strong> Please fill out all the fields
-                        </div>
-                        {{super()}}
-                        {%endif%}
                     </div>
+                    <div align="center">
+                        <input type="submit" value="Submit" class="btn btn-lg btn-info">
+                    </div>
+                    {%if valid%}
+                    <div class="alert alert-success">
+                        <strong>Success!</strong> Data Entered successfully.
+                    </div>
+                    {%else%}
+                    <div class="alert alert-warning">
+                        <strong>Note:</strong> Please fill out all the fields
+                    </div>
+                    {%if err%}
+                    <div class="alert alert-danger">
+                        <strong>Class entry already exists</strong>
+                    </div>
+                    {{super()}}
+                    {%endif%}
+                    {%endif%}
                 </div>
             </form>
         </div>

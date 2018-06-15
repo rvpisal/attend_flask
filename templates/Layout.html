@@ -28,10 +28,11 @@
         </div>
         <ul class="nav navbar-nav">
             <li><a href="/">Home</a></li>
+            <li><a href="./Reg_Class">Register Class</a></li>
             <li><a href="./Reg_Students">Register students</a></li>
             <li><a href="./Stats">Stats</a></li>
             <li><a href="./Graph">Graph</a></li>
-            <li><a href="http://localhost:8000">Page 3</a></li>
+            <li><a href="http://localhost:8000">Take Attendance</a></li>
         </ul>
     </div>
 </nav>
@@ -39,14 +40,17 @@
 {%endblock%}
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+<!--script for clockface-->
 <script src="/static/js/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/static/js/bootstrap.min.js"></script>
 <script src="/static/js/clockface.js"></script>
-<script src="/static/js/jquery-1.11.1.min.js"></script>
+<!--<script src="/static/js/jquery-1.11.1.min.js"></script>-->
 <script src="/static/js/Chart.min.js"></script>
+
 <script>
-                    $(function(){
+    $(function(){
     $('#strt_time, #end_time').clockface({
         format: 'HH:mm',
         trigger: 'manual'
@@ -57,7 +61,9 @@
         $('#strt_time, #end_time').clockface('toggle');
     });
 });
+
 </script>
+
 <script>
    // bar chart data
    var barData = {
@@ -93,9 +99,59 @@
         scaleShowLabels: true
    });
 
+</script>
 
+<!--ulid filter-->
+<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+</script>
+
+
+<!--date filter-->
+<script>
+function myFunction1() {
+  // Declare variables
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput1");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
 
 
 </script>
+
 </body>
 </html>

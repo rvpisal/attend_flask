@@ -23,8 +23,9 @@ Register Students
                             <div class="form-group">
                                 <label for="crse_id">Course ID</label>
                                 <select name="crse_id" class="form-control" id="sel1">
+                                    <option value="Select" SELECTED="selected">--Select--</option>
                                     {% for items in option_list %}
-                                    <option value="{{ items.Course_id }}" SELECTED>{{ items.Course_id }}</option>
+                                    <option value="{{ items.Course_id }}">{{ items.Course_id }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -40,7 +41,12 @@ Register Students
                         <div class="alert alert-warning">
                             <strong>Note:</strong> Please fill out all the fields
                         </div>
+                        {%if err%}
+                        <div class="alert alert-danger">
+                            <strong>Student entry already exists</strong>
+                        </div>
                         {{super()}}
+                        {%endif%}
                         {%endif%}
                     </div>
                 </div>
