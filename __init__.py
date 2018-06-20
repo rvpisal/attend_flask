@@ -7,10 +7,27 @@ from dateutil import parser
 app = Flask(__name__)
 # Bootstrap(app)
 
-Database = 'Attendance.db3'
+Database = "../web/Attendance.db3"
+
+# CREATE TABLE "Attendance" (`Course_id` TEXT,`ULID`	TEXT,`TimeStamp`	TEXT,`Day`	TEXT,
+# 	PRIMARY KEY(`Course_id`,`TimeStamp`,`ULID`)
+# )
+#
+# CREATE TABLE "Class_Schedule" (	`Course_id`	TEXT,`Subject_name`	text,`Day`	Text,`Start_Time`	date,
+# 	`End_Time`	date,PRIMARY KEY(`Course_id`,`Day`))
+# #
+# CREATE TABLE "Registration_Details" (	`ULID`	TEXT,	`Student_Name`	TEXT,	`Course_id`	INTEGER,	PRIMARY KEY(`ULID`,`Course_id`))
 
 
 def connect():
+    with sqlite3.connect(Database) as db:
+        db.execute("CREATE TABLE IF NOT EXISTS Attendance (Course_id TEXT,ULID TEXT,TimeStamp	TEXT,Day TEXT, "
+               "PRIMARY KEY(Course_id,TimeStamp, ULID))")
+        db.execute("CREATE TABLE IF NOT EXISTS Class_Schedule (Course_id TEXT,Subject_name text, Day Text,"
+                   "Start_Time	date,End_Time date,PRIMARY KEY(Course_id,Day))")
+        db.execute("CREATE TABLE IF NOT EXISTS Registration_Details (ULID	TEXT,Student_Name TEXT,Course_id INTEGER"
+                   ",PRIMARY KEY(ULID,Course_id))")
+
     return sqlite3.connect(Database)
 
 
@@ -61,7 +78,7 @@ def Ins_stu():
     opt_list = [dict(Course_id=row[0]) for row in cur.fetchall()]
 
     stu_name = request.form['stu_name']
-    ulid = request.form['ulid']
+    ulid = str(request.form['ulid']).lower()
     crse_id = request.form['crse_id']
     if stu_name == "" or ulid == "" or crse_id == "":
         return render_template('Reg_Students.html', valid=False, option_list=opt_list)
