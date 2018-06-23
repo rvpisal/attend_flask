@@ -7,7 +7,7 @@ from dateutil import parser
 app = Flask(__name__)
 # Bootstrap(app)
 
-Database = "../web/Attendance.db3"
+Database = "Attendance.db3"
 
 # CREATE TABLE "Attendance" (`Course_id` TEXT,`ULID`	TEXT,`TimeStamp`	TEXT,`Day`	TEXT,
 # 	PRIMARY KEY(`Course_id`,`TimeStamp`,`ULID`)
@@ -112,7 +112,6 @@ def Show_Stats():
     cur1 = db.cursor()
     cur2 = db.cursor()
     cur3 = db.cursor()
-    cur4 = db.cursor()
 
     cur.execute('Select Course_id from Class_Schedule')
     opt_list = [dict(Course_id=row[0]) for row in cur.fetchall()]
@@ -126,15 +125,11 @@ def Show_Stats():
     tot_list = [dict(ULID=row[0], total=row[1]) for row in cur2.fetchall()]
 
     cur3.execute('Select Distinct Course_id,Subject_name from Class_Schedule where Course_id = ?',(course_id,))
-    course_det = list([str(row[0]) for row in cur3.fetchall()])
+    course_det_1 = list([row for row in cur3.fetchall()])
+    course_det_2 = tuple(course_det_1)
 
-    print(course_det)
+    crse_det = course_det_2[0][0] + ' - ' + course_det_2[0][1]
 
-    crse_det = course_det[0]
-
-
-
-    print(crse_det)
 
     return render_template('Stats.html', atn_list=atn_list, tot_list=tot_list,
                            option_list=opt_list,show_tab=True, course_details = crse_det)
@@ -162,6 +157,7 @@ def graph_main():
     db = connect()
     cur = db.cursor()
     cur1 = db.cursor()
+    cur3 = db.cursor()
     Crse_id = request.form['crse_id']
     month_list = []
     count_list = []
@@ -172,6 +168,12 @@ def graph_main():
     cur.execute('select date(TimeStamp),count(*) from Attendance where Course_id = ?'
                 ' GROUP by date(TimeStamp)', (Crse_id,))
 
+    cur3.execute('Select Distinct Course_id,Subject_name from Class_Schedule where Course_id = ?', (Crse_id,))
+    course_det_1 = list([row for row in cur3.fetchall()])
+    course_det_2 = tuple(course_det_1)
+
+    crse_det = course_det_2[0][0] + ' - ' + course_det_2[0][1]
+
     for row in cur.fetchall():
         # print(i)
         date = datetime.strptime(row[0], '%Y-%m-%d')
@@ -179,7 +181,8 @@ def graph_main():
         month_list.append(str_date)
         count_list.append(row[1])
 
-    return render_template('Graph.html', values=count_list, labels=month_list, option_list=opt_list, canvas=True)
+    return render_template('Graph.html', values=count_list, labels=month_list,
+                           course_details=crse_det, option_list=opt_list, canvas=True)
 
 
 if __name__ == '__main__':
