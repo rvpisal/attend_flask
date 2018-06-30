@@ -1,0 +1,11 @@
+how many attended:
+
+select rd.ulid, count(a.ULID) from registration_details rd LEFT JOIN Attendance a on rd.Course_id = a.Course_id and rd.ulid= a.ULID
+where rd.Course_id = '2'
+GROUP by rd.ULID;
+
+
+how many lectures happened:
+SELECT DISTINCT Course_id, TimeStamp from Attendance WHERE Course_id = '2';
+
+
